@@ -1,4 +1,4 @@
-package com.enrollment;
+package com.enrollment.entities;
 
 import com.enrollment.entities.*;
 
@@ -8,7 +8,7 @@ public class Main {
 
         Course javaCourse = new Course("CS101", "Java Programming", 3);
 
-        Section it1a = new Section("IT-2D", 2);
+        Section it1a = new Section("IT-1A", 2);
 
         Instructor profDr = new Instructor("I001", "Dr. Pepper", "IT Department");
         it1a.setInstructor(profDr);
