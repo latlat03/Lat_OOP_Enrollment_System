@@ -1,17 +1,28 @@
 package com.enrollment;
 
-import com.enrollment.entities.Student;
-import com.enrollment.entities.Instructor;
+import com.enrollment.entities.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("--- Inheritance Test ---");
+        System.out.println("--- Hierarchy Test ---");
 
-        Student student = new Student("S1001", "Mikel Jeckson");
+        Course javaCourse = new Course("CS101", "Java Programming", 3);
 
-        Instructor instructor = new Instructor("I2001", "Dr. Pepper", "Computer Science");
+        Section it1a = new Section("IT-2D", 2);
 
-        System.out.println("Student: " + student.getName() + " (ID: " + student.getId() + ")");
-        System.out.println("Instructor: " + instructor.getName() + " in " + instructor.getDepartment());
+        Instructor profDr = new Instructor("I001", "Dr. Pepper", "IT Department");
+        it1a.setInstructor(profDr);
+
+        Student student1 = new Student("S001", "MAKMAK");
+        it1a.getEnrolledStudents().add(student1);
+
+        Department itDept = new Department("College of Information Technology and Engineering");
+        itDept.getSections().add(it1a);
+
+        // Hierarchy Result
+        System.out.println("Department: " + itDept.getDepartmentName());
+        System.out.println("Section: " + itDept.getSections().get(0).getSectionName());
+        System.out.println("Instructor: " + itDept.getSections().get(0).getInstructor().getName());
+        System.out.println("Students Enrolled: " + it1a.getEnrolledStudents().size());
     }
 }
