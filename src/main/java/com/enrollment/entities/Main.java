@@ -2,6 +2,7 @@ package com.enrollment.entities;
 
 import com.enrollment.entities.Student;
 import com.enrollment.entities.Course;
+import com.enrollment.entities.Instructor;
 import com.enrollment.services.*;
 import java.util.Scanner;
 
@@ -19,7 +20,14 @@ public class Main {
 
         while (running) {
             System.out.println("\n--- Enrollment System ---");
-            System.out.println("[1] Add Student\n[2] Display Students\n[3] Add Course\n[4] Display Courses\n[5] Test Tuition\n[6] Exit");
+            System.out.println("[1] Add Student");
+            System.out.println("[2] Display Students");
+            System.out.println("[3] Add Course");
+            System.out.println("[4] Display Courses");
+            System.out.println("[5] Test Tuition");
+            System.out.println("[6] Add Instructor");
+            System.out.println("[7] Display Instructors");
+            System.out.println("[0] Exit");
             System.out.print("Choice: ");
 
             int choice = input.nextInt();
@@ -49,8 +57,20 @@ public class Main {
                     System.out.println("Balance: " + payment.getBalance());
                     break;
                 case 6:
-                    running = false;
+                    System.out.print("Instructor Name: "); String instName = input.nextLine();
+                    System.out.print("Instructor ID: "); String instId = input.nextLine();
+                    System.out.print("Course Assigned: "); String instCourse = input.nextLine();
+                    registrar.saveInstructor(new Instructor(instId, instName, instCourse));
                     break;
+                case 7:
+                    registrar.displayAllInstructors();
+                    break;
+                case 0:
+                    running = false;
+                    System.out.println("Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
             }
         }
     }
