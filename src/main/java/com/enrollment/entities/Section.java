@@ -1,32 +1,25 @@
 package com.enrollment.entities;
 
-import com.enrollment.entities.Student;
-import com.enrollment.entities.Instructor;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Section {
-    private String sectionID;
     private String sectionName;
-    private Instructor instructor; // Changed to lowercase 'instructor' for consistency
-    private ArrayList<Student> studentList;
+    private List<Student> studentList;
 
-    public Section(String sectionID, String sectionName, Instructor instructor) {
-        this.sectionID = sectionID;
+    public Section(String sectionName) {
         this.sectionName = sectionName;
-        this.instructor = instructor;
         this.studentList = new ArrayList<>();
     }
 
-    public void addStudent(Student student) {
-        studentList.add(student);
-    }
+    public String getSectionName() { return sectionName; }
+    public void setSectionName(String sectionName) { this.sectionName = sectionName; }
 
-    public void displaySectionDetails() {
-        System.out.println("Section: " + sectionName + " (ID: " + sectionID + ")");
-        System.out.println("Instructor: " + instructor.getPersonName());
-        System.out.println("Students Enrolled:");
-        for (Student s : studentList) {
-            System.out.println("- " + s.getPersonName());
-        }
+    public List<Student> getStudentList() { return studentList; }
+    public void setStudentList(List<Student> studentList) { this.studentList = studentList; }
+
+    @Override
+    public String toString() {
+        return "Section: " + sectionName + " | Enrolled: " + studentList.size() + "/40";
     }
 }

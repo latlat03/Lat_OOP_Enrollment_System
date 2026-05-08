@@ -3,6 +3,7 @@ package com.enrollment.entities;
 import com.enrollment.entities.Student;
 import com.enrollment.entities.Course;
 import com.enrollment.entities.Instructor;
+import com.enrollment.entities.Section;
 import com.enrollment.services.*;
 import java.util.Scanner;
 
@@ -27,6 +28,9 @@ public class Main {
             System.out.println("[5] Test Tuition");
             System.out.println("[6] Add Instructor");
             System.out.println("[7] Display Instructors");
+            System.out.println("[8] Create Section");
+            System.out.println("[9] Enroll Student in Section");
+            System.out.println("[10] Display Sections");
             System.out.println("[0] Exit");
             System.out.print("Choice: ");
 
@@ -64,6 +68,27 @@ public class Main {
                     break;
                 case 7:
                     registrar.displayAllInstructors();
+                    break;
+                case 8:
+                    System.out.print("Enter Section Name: ");
+                    String secName = input.nextLine();
+                    registrar.saveSection(new Section(secName));
+                    break;
+                case 9:
+                    System.out.print("Enter Section Name: ");
+                    String targetSection = input.nextLine();
+                    System.out.print("Enter Student ID: ");
+                    String targetID = input.nextLine();
+
+                    Student foundStudent = registrar.findStudent(targetID);
+                    if (foundStudent != null) {
+                        registrar.enrollStudentInSection(targetSection, foundStudent);
+                    } else {
+                        System.out.println("Error: Student with ID " + targetID + " not found.");
+                    }
+                    break;
+                case 10:
+                    registrar.displayAllSections();
                     break;
                 case 0:
                     running = false;
