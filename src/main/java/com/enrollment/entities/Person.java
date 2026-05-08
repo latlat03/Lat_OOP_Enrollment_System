@@ -19,7 +19,6 @@ public abstract class Person {
 
     public String getPersonName() { return PersonName; }
 
-    // Adding a small validation logic here to "show off" encapsulation
     public void setPersonName(String PersonName) {
         if (PersonName != null && !PersonName.trim().isEmpty()) {
             this.PersonName = PersonName;

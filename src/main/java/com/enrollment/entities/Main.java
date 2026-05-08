@@ -1,21 +1,27 @@
 package com.enrollment.entities;
 
 import com.enrollment.entities.Student;
-import com.enrollment.services.StudentRegistration;
-import com.enrollment.services.TuitionFeePayment;
+import com.enrollment.entities.Course;
+import com.enrollment.services.*;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        StudentRegistration sr = new StudentRegistration();
+
+        StudentReg studentService = new StudentRegistration();
+        CourseReg courseService = new CourseRegistration();
+
+        Registrar registrar = new Registrar(studentService, courseService);
+
         TuitionFeePayment payment = new TuitionFeePayment();
         boolean running = true;
 
         while (running) {
             System.out.println("\n--- Enrollment System ---");
-            System.out.println("[1] Save Student\n[2] Display Students\n[3] Test Tuition\n[4] Exit");
+            System.out.println("[1] Add Student\n[2] Display Students\n[3] Add Course\n[4] Display Courses\n[5] Test Tuition\n[6] Exit");
             System.out.print("Choice: ");
+
             int choice = input.nextInt();
             input.nextLine();
 
@@ -24,16 +30,25 @@ public class Main {
                     System.out.print("Name: "); String name = input.nextLine();
                     System.out.print("ID: "); String id = input.nextLine();
                     System.out.print("Program: "); String prog = input.nextLine();
-                    sr.saveStudent(new Student(id, name, prog));
+                    registrar.saveStudent(new Student(id, name, prog));
                     break;
                 case 2:
-                    sr.displayAllStudents();
+                    registrar.displayAllStudents();
                     break;
                 case 3:
+                    System.out.print("Course Code: "); String code = input.nextLine();
+                    System.out.print("Course Name: "); String cName = input.nextLine();
+                    System.out.print("Program: "); String cProg = input.nextLine();
+                    registrar.saveCourse(new Course(code, cName, cProg));
+                    break;
+                case 4:
+                    registrar.displayAllCourses();
+                    break;
+                case 5:
                     payment.calculateTuitionFee(3, 0);
                     System.out.println("Balance: " + payment.getBalance());
                     break;
-                case 4:
+                case 6:
                     running = false;
                     break;
             }
