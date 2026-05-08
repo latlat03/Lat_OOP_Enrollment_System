@@ -1,14 +1,13 @@
-package com.enrollment.entities; // Keep your package name!
+package com.enrollment.entities;
 
 public class Instructor extends Person {
-    private String course; // Changed from courses to course to match Meg's logic
+    private String course;
 
     public Instructor(String personID, String personName, String course) {
         super(personID, personName);
         this.course = course;
     }
 
-    // Changed to getCourse() so InstructorRegistration can find it
     public String getCourse() { return course; }
     public void setCourse(String course) { this.course = course; }
 

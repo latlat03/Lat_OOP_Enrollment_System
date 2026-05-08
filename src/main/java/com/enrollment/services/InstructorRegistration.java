@@ -22,7 +22,6 @@ public class InstructorRegistration implements InstructorReg {
             System.out.println("\n--- Instructor Details ---");
             System.out.println("Name: " + i.getPersonName());
             System.out.println("ID:   " + i.getPersonID());
-            // Assumes Instructor entity has a getCourse() or similar method
             System.out.println("Course: " + i.getCourse());
         }
     }

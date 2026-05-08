@@ -31,6 +31,8 @@ public class Main {
             System.out.println("[8] Create Section");
             System.out.println("[9] Enroll Student in Section");
             System.out.println("[10] Display Sections");
+            System.out.println("[11] Register Department");
+            System.out.println("[12] Display Departments");
             System.out.println("[0] Exit");
             System.out.print("Choice: ");
 
@@ -89,6 +91,14 @@ public class Main {
                     break;
                 case 10:
                     registrar.displayAllSections();
+                    break;
+                case 11:
+                    System.out.print("Enter Department Name (e.g., CICS): ");
+                    String dName = input.nextLine();
+                    registrar.saveDepartment(new Department(dName));
+                    break;
+                case 12:
+                    registrar.displayDepartments();
                     break;
                 case 0:
                     running = false;

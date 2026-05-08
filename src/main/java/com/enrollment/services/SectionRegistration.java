@@ -32,7 +32,6 @@ public class SectionRegistration implements SectionReg {
     public void addStudentToSection(String sectionName, Student student) {
         Section foundSection = findBySectionName(sectionName);
         if (foundSection != null) {
-            // YOUR SPECIFIC REQUIREMENT: 40 Student Limit
             if (foundSection.getStudentList().size() < 40) {
                 foundSection.getStudentList().add(student);
                 System.out.println("Enrolled " + student.getPersonName() + " into " + sectionName);
