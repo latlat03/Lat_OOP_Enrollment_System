@@ -15,4 +15,11 @@ public class Instructor extends Person {
     public void mainTask() {
         System.out.println("Instructor teaches");
     }
+
+    @Override
+    public String toString() {
+        return "Instructor Info [ID: " + getPersonID() +
+                ", Name: " + getPersonName() +
+                ", Courses: " + courses + "]";
+    }
 }
