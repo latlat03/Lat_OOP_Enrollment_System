@@ -44,5 +44,7 @@ Screenshot of the `Main` class verifying that the objects can be instantiated an
 
 
 ### Abstraction Execution Test
-   A screenshot of the Main class execution verifying that the system successfully handles the abstract hierarchy.
    ![](images/MainExec1.png)
+
+### Junit jupiter testing TuitionFeePayment
+![Unit Test Results](images/Test_Results.png)
