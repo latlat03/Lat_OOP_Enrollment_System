@@ -1,33 +1,32 @@
-package com.enrollment.services;
+package com.enrollment.services.impl;
 
 import com.enrollment.entities.Instructor;
+import com.enrollment.services.IInstructorService;
+
 import java.util.*;
 
-public class InstructorRegistration implements InstructorReg {
+public class InstructorServiceImpl implements IInstructorService {
     private List<Instructor> instructors = new ArrayList<>();
 
     @Override
-    public void save(Instructor instructor) {
+    public void addInstructor(Instructor instructor) {
         instructors.add(instructor);
-        System.out.println("Instructor " + instructor.getPersonName() + " saved successfully.");
+        System.out.println("Instructor " + instructor.getPersonName() + " added successfully.");
     }
 
     @Override
-    public void displayAll() {
+    public void displayAllInstructors() {
         if (instructors.isEmpty()) {
             System.out.println("No instructors found.");
             return;
         }
         for (Instructor i : instructors) {
-            System.out.println("\n--- Instructor Details ---");
-            System.out.println("Name: " + i.getPersonName());
-            System.out.println("ID:   " + i.getPersonID());
-            System.out.println("Course: " + i.getCourse());
+            System.out.println(i);
         }
     }
 
     @Override
-    public Instructor findByID(String id) {
+    public Instructor getInstructorDetails(String id) {
         for (Instructor i : instructors) {
             if (i.getPersonID().equalsIgnoreCase(id)) {
                 return i;

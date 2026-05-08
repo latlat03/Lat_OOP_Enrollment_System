@@ -1,4 +1,4 @@
-package com.enrollment.services;
+package com.enrollment.entities;
 
 public class TuitionFeePayment {
     private final double PRICE_PER_UNIT = 1000.0;

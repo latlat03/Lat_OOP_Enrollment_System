@@ -4,11 +4,13 @@ import com.enrollment.entities.Section;
 import com.enrollment.entities.Student;
 import java.util.List;
 
-public interface SectionReg {
-    void save(Section section);
-    List<Section> displayAll();
+public interface IEnrollmentService {
+    void saveSection(Section section);
+    List<Section> getAllSections();
+
     Section findBySectionName(String sectionName);
     void updateSection(String oldName, Section updatedSection);
     void deleteSection(String sectionName);
-    void addStudentToSection(String sectionName, Student student);
+
+    void enrollStudentInSection(Student student, String sectionName);
 }

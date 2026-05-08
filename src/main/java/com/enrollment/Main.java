@@ -1,22 +1,30 @@
-package com.enrollment.entities;
+package com.enrollment;
 
-import com.enrollment.entities.Student;
-import com.enrollment.entities.Course;
-import com.enrollment.entities.Instructor;
-import com.enrollment.entities.Section;
+import com.enrollment.entities.*;
 import com.enrollment.services.*;
+import com.enrollment.services.impl.*;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        StudentReg studentService = new StudentRegistration();
-        CourseReg courseService = new CourseRegistration();
+        // Initialize Service Implementations
+        IStudentService studentService = new StudentServiceImpl();
+        ICourseService courseService = new CourseServiceImpl();
+        IInstructorService instructorService = new InstructorServiceImpl();
+        IEnrollmentService enrollmentService = new EnrollmentServiceImpl();
+        IDepartmentService departmentService = new DepartmentServiceImpl();
 
-        Registrar registrar = new Registrar(studentService, courseService);
+        // Inject services to Registrar
+        Registrar registrar = new Registrar(
+                studentService,
+                courseService,
+                instructorService,
+                enrollmentService,
+                departmentService
+        );
 
-        TuitionFeePayment payment = new TuitionFeePayment();
         boolean running = true;
 
         while (running) {
@@ -25,10 +33,10 @@ public class Main {
             System.out.println("[2] Display Students");
             System.out.println("[3] Add Course");
             System.out.println("[4] Display Courses");
-            System.out.println("[5] Test Tuition");
+            System.out.println("[5] (Tuition Disabled - Coming Soon)");
             System.out.println("[6] Add Instructor");
             System.out.println("[7] Display Instructors");
-            System.out.println("[8] Create Section");
+            System.out.println("[8] Create Section (with Capacity)");
             System.out.println("[9] Enroll Student in Section");
             System.out.println("[10] Display Sections");
             System.out.println("[11] Register Department");
@@ -59,8 +67,7 @@ public class Main {
                     registrar.displayAllCourses();
                     break;
                 case 5:
-                    payment.calculateTuitionFee(3, 0);
-                    System.out.println("Balance: " + payment.getBalance());
+                    System.out.println("This feature is currently disabled.");
                     break;
                 case 6:
                     System.out.print("Instructor Name: "); String instName = input.nextLine();
@@ -74,7 +81,9 @@ public class Main {
                 case 8:
                     System.out.print("Enter Section Name: ");
                     String secName = input.nextLine();
-                    registrar.saveSection(new Section(secName));
+                    System.out.print("Enter Maximum Capacity: ");
+                    int cap = input.nextInt();
+                    registrar.saveSection(new Section(secName, cap));
                     break;
                 case 9:
                     System.out.print("Enter Section Name: ");
@@ -93,7 +102,7 @@ public class Main {
                     registrar.displayAllSections();
                     break;
                 case 11:
-                    System.out.print("Enter Department Name (e.g., CICS): ");
+                    System.out.print("Enter Department Name: ");
                     String dName = input.nextLine();
                     registrar.saveDepartment(new Department(dName));
                     break;

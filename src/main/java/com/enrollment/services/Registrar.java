@@ -1,66 +1,60 @@
 package com.enrollment.services;
 
-import com.enrollment.entities.Student;
-import com.enrollment.entities.Course;
-import com.enrollment.entities.Instructor;
-import com.enrollment.entities.Section;
-import com.enrollment.entities.Department; // NEW
+import com.enrollment.entities.*;
 
 public class Registrar {
-    private StudentReg studentRegistration;
-    private CourseReg courseRegistration;
-    private final InstructorReg instructorReg;
-    private final SectionReg sectionReg;
-    private final DepartmentReg departmentReg; // NEW
+    private final IStudentService studentService;
+    private final ICourseService courseService;
+    private final IInstructorService instructorService;
+    private final IEnrollmentService enrollmentService;
+    private final IDepartmentService departmentService;
 
-    public Registrar(StudentReg studentRegistration, CourseReg courseRegistration) {
-        this.studentRegistration = studentRegistration;
-        this.courseRegistration = courseRegistration;
-        this.instructorReg = new InstructorRegistration();
-        this.sectionReg = new SectionRegistration();
-        this.departmentReg = new DepartmentRegistration();
+    public Registrar(IStudentService studentService,
+                     ICourseService courseService,
+                     IInstructorService instructorService,
+                     IEnrollmentService enrollmentService,
+                     IDepartmentService departmentService) {
+        this.studentService = studentService;
+        this.courseService = courseService;
+        this.instructorService = instructorService;
+        this.enrollmentService = enrollmentService;
+        this.departmentService = departmentService;
     }
 
-    // Student Methods
-    public void saveStudent(Student student) { studentRegistration.saveStudent(student); }
-    public void displayAllStudents() { studentRegistration.displayAllStudents(); }
-    public boolean removeStudent(String id) { return studentRegistration.removeStudent(id); }
-    public Student findStudent(String id) { return studentRegistration.findStudent(id); }
-    public boolean updateStudent(Student student) { return studentRegistration.updateStudent(student); }
+    //  Student Bridge Methods
+    public void saveStudent(Student student) { studentService.addStudent(student); }
+    public void displayAllStudents() { studentService.displayAllStudents(); }
+    public Student findStudent(String id) { return studentService.findStudent(id); }
 
-    // Course Methods
-    public void saveCourse(Course course) { courseRegistration.save(course); }
-    public void displayAllCourses() { courseRegistration.displayAll(); }
-    public void removeCourse(String courseID) { courseRegistration.removeCourse(courseID); }
+    //  Course Bridge Methods
+    public void saveCourse(Course course) { courseService.addCourse(course); }
+    public void displayAllCourses() { courseService.displayAllCourses(); }
 
-    // Instructor Methods
-    public void saveInstructor(Instructor instructor) { instructorReg.save(instructor); }
-    public void displayAllInstructors() { instructorReg.displayAll(); }
-    public Instructor findInstructor(String id) { return instructorReg.findByID(id); }
-    public void updateInstructor(String id, Instructor updated) { instructorReg.updateInstructor(id, updated); }
-    public void deleteInstructor(String id) { instructorReg.deleteInstructor(id); }
+    //  Instructor Bridge Methods
+    public void saveInstructor(Instructor instructor) { instructorService.addInstructor(instructor); }
+    public void displayAllInstructors() { instructorService.displayAllInstructors(); }
+    public Instructor findInstructor(String id) { return instructorService.getInstructorDetails(id); }
 
-    // Section Methods
-    public void saveSection(Section section) { sectionReg.save(section); }
+    //  Section & Enrollment Bridge Methods
+    public void saveSection(Section section) { enrollmentService.saveSection(section); }
     public void displayAllSections() {
-        if (sectionReg.displayAll().isEmpty()) {
-            System.out.println("No sections created yet.");
-        } else {
-            for (Section s : sectionReg.displayAll()) {
-                System.out.println(s);
-            }
+        for (Section s : enrollmentService.getAllSections()) {
+            System.out.println(s);
         }
     }
+
     public void enrollStudentInSection(String sectionName, Student student) {
-        sectionReg.addStudentToSection(sectionName, student);
+        enrollmentService.enrollStudentInSection(student, sectionName);
     }
 
-    public void saveDepartment(Department dept) { departmentReg.save(dept); }
+    //  Department Bridge Methods
+    public void saveDepartment(Department dept) { departmentService.addDepartment(dept); }
+
     public void displayDepartments() {
-        if (departmentReg.displayAll().isEmpty()) {
+        if (departmentService.getAllDepartments().isEmpty()) {
             System.out.println("No departments registered.");
         } else {
-            for (Department d : departmentReg.displayAll()) {
+            for (Department d : departmentService.getAllDepartments()) {
                 System.out.println(d);
             }
         }
