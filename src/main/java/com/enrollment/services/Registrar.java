@@ -8,34 +8,38 @@ public class Registrar {
     private final IInstructorService instructorService;
     private final IEnrollmentService enrollmentService;
     private final IDepartmentService departmentService;
+    private final ITuitionService tuitionService;
 
     public Registrar(IStudentService studentService,
                      ICourseService courseService,
                      IInstructorService instructorService,
                      IEnrollmentService enrollmentService,
-                     IDepartmentService departmentService) {
+                     IDepartmentService departmentService,
+                     ITuitionService tuitionService) {
+
         this.studentService = studentService;
         this.courseService = courseService;
         this.instructorService = instructorService;
         this.enrollmentService = enrollmentService;
         this.departmentService = departmentService;
+        this.tuitionService = tuitionService;
     }
 
-    //  Student Bridge Methods
+    // Student Bridge Methods
     public void saveStudent(Student student) { studentService.addStudent(student); }
     public void displayAllStudents() { studentService.displayAllStudents(); }
     public Student findStudent(String id) { return studentService.findStudent(id); }
 
-    //  Course Bridge Methods
+    // Course Bridge Methods
     public void saveCourse(Course course) { courseService.addCourse(course); }
     public void displayAllCourses() { courseService.displayAllCourses(); }
 
-    //  Instructor Bridge Methods
+    // Instructor Bridge Methods
     public void saveInstructor(Instructor instructor) { instructorService.addInstructor(instructor); }
     public void displayAllInstructors() { instructorService.displayAllInstructors(); }
     public Instructor findInstructor(String id) { return instructorService.getInstructorDetails(id); }
 
-    //  Section & Enrollment Bridge Methods
+    // Section & Enrollment Bridge Methods
     public void saveSection(Section section) { enrollmentService.saveSection(section); }
     public void displayAllSections() {
         for (Section s : enrollmentService.getAllSections()) {
@@ -47,7 +51,7 @@ public class Registrar {
         enrollmentService.enrollStudentInSection(student, sectionName);
     }
 
-    //  Department Bridge Methods
+    // Department Bridge Methods
     public void saveDepartment(Department dept) { departmentService.addDepartment(dept); }
 
     public void displayDepartments() {
@@ -58,5 +62,13 @@ public class Registrar {
                 System.out.println(d);
             }
         }
+    }
+
+    // Tuition Bridge Method
+    public void processTuition(int units) {
+        double fee = tuitionService.calculateFee(units);
+        System.out.println("Units: " + units);
+        System.out.println("Total Fee: " + fee);
+        System.out.println("New Balance: " + tuitionService.getRemainingBalance());
     }
 }

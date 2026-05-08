@@ -9,20 +9,20 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        // Initialize Service Implementations
         IStudentService studentService = new StudentServiceImpl();
         ICourseService courseService = new CourseServiceImpl();
         IInstructorService instructorService = new InstructorServiceImpl();
         IEnrollmentService enrollmentService = new EnrollmentServiceImpl();
         IDepartmentService departmentService = new DepartmentServiceImpl();
+        ITuitionService tuitionService = new TuitionServiceImpl(); // Added back
 
-        // Inject services to Registrar
         Registrar registrar = new Registrar(
                 studentService,
                 courseService,
                 instructorService,
                 enrollmentService,
-                departmentService
+                departmentService,
+                tuitionService
         );
 
         boolean running = true;
@@ -33,7 +33,7 @@ public class Main {
             System.out.println("[2] Display Students");
             System.out.println("[3] Add Course");
             System.out.println("[4] Display Courses");
-            System.out.println("[5] (Tuition Disabled - Coming Soon)");
+            System.out.println("[5] Process Tuition");
             System.out.println("[6] Add Instructor");
             System.out.println("[7] Display Instructors");
             System.out.println("[8] Create Section (with Capacity)");
@@ -67,7 +67,9 @@ public class Main {
                     registrar.displayAllCourses();
                     break;
                 case 5:
-                    System.out.println("This feature is currently disabled.");
+                    System.out.print("Enter units: ");
+                    int units = input.nextInt();
+                    registrar.processTuition(units);
                     break;
                 case 6:
                     System.out.print("Instructor Name: "); String instName = input.nextLine();
