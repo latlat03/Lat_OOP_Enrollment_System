@@ -1,16 +1,20 @@
 package com.enrollment.entities;
 
 public abstract class Person {
-    private String id;
-    private String name;
+    private String PersonID;
+    private String PersonName;
 
-    public Person(String id, String name) {
-        this.id = id;
-        this.name = name;
+    public Person(String PersonID, String PersonName) {
+        this.PersonID = PersonID;
+        this.PersonName = PersonName;
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public Person() {}
+
+    public String getPersonID() { return PersonID; }
+    public void setPersonID(String PersonID) { this.PersonID = PersonID; }
+    public String getPersonName() { return PersonName; }
+    public void setPersonName(String PersonName) { this.PersonName = PersonName; }
+
+    public abstract void mainTask();
 }

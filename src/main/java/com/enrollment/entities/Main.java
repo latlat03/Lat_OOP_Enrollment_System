@@ -1,28 +1,42 @@
 package com.enrollment.entities;
 
-import com.enrollment.entities.*;
+import com.enrollment.entities.Student;
+import com.enrollment.services.StudentRegistration;
+import com.enrollment.services.TuitionFeePayment;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("--- Hierarchy Test ---");
+        Scanner input = new Scanner(System.in);
+        StudentRegistration sr = new StudentRegistration();
+        TuitionFeePayment payment = new TuitionFeePayment();
+        boolean running = true;
 
-        Course javaCourse = new Course("CS101", "Java Programming", 3);
+        while (running) {
+            System.out.println("\n--- Enrollment System ---");
+            System.out.println("[1] Save Student\n[2] Display Students\n[3] Test Tuition\n[4] Exit");
+            System.out.print("Choice: ");
+            int choice = input.nextInt();
+            input.nextLine();
 
-        Section it1a = new Section("IT-1A", 2);
-
-        Instructor profDr = new Instructor("I001", "Dr. Pepper", "IT Department");
-        it1a.setInstructor(profDr);
-
-        Student student1 = new Student("S001", "MAKMAK");
-        it1a.getEnrolledStudents().add(student1);
-
-        Department itDept = new Department("College of Information Technology and Engineering");
-        itDept.getSections().add(it1a);
-
-        // Hierarchy Result
-        System.out.println("Department: " + itDept.getDepartmentName());
-        System.out.println("Section: " + itDept.getSections().get(0).getSectionName());
-        System.out.println("Instructor: " + itDept.getSections().get(0).getInstructor().getName());
-        System.out.println("Students Enrolled: " + it1a.getEnrolledStudents().size());
+            switch (choice) {
+                case 1:
+                    System.out.print("Name: "); String name = input.nextLine();
+                    System.out.print("ID: "); String id = input.nextLine();
+                    System.out.print("Program: "); String prog = input.nextLine();
+                    sr.saveStudent(new Student(id, name, prog));
+                    break;
+                case 2:
+                    sr.displayAllStudents();
+                    break;
+                case 3:
+                    payment.calculateTuitionFee(3, 0);
+                    System.out.println("Balance: " + payment.getBalance());
+                    break;
+                case 4:
+                    running = false;
+                    break;
+            }
+        }
     }
 }

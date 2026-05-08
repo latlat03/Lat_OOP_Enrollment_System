@@ -14,4 +14,16 @@ public class Course {
     public String getCourseCode() { return courseCode; }
     public String getCourseName() { return courseName; }
     public int getUnits() { return units; }
+
+    public String getPersonID() {
+        return null;
+    }
+
+    public String getPersonName() {
+        return null;
+    }
+
+    public String getCourseProgram() {
+        return null;
+    }
 }
