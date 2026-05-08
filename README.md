@@ -54,13 +54,47 @@ Screenshot of the `Main` class verifying that the objects can be instantiated an
 
 ### StudentReg (Interface):
 Ensures any registration service provides save, display, update, and remove functionality.
-![Unit Test Results](images/StudentReg1.png)
+![](images/StudentReg1.png)
 
 ### CourseReg (Interface):
 Standardizes how courses are stored and retrieved independently of the UI.
-![Unit Test Results](images/CourseReg1.png)
+![](images/CourseReg1.png)
 
 ### Registrar (Coordinator):
 Acting as the central hub.
 The Main class communicates only with the Registrar, which then delegates tasks to the specific service implementations.
-![Unit Test Results](images/Registrar1.png)
+![](images/Registrar1.png)
+
+
+## Polymorphism 
+
+### InstructorReg: 
+The interface (contract) defining how instructors should be managed.
+![](images/InstructorReg1.png)
+
+### InstructorRegistration: 
+The implementation class that actually stores the list of faculty.
+![](images/InstructorRegistration1.png)
+
+## Section Module
+### SectionReg: 
+Interface for section management; ensures all implementations handle student lists.
+![](images/SectionReg1.png)
+
+### SectionRegistration: 
+Implementation containing the 40-student limit logic.
+![](images/SectionRegistration1.png)
+
+## Department Module
+### DepartmentReg: 
+Interface for top-level organizational grouping.
+![](images/DepartmentReg1.png)
+
+### DepartmentRegistration: 
+Logic for registering departments and linking them to other entities.
+![](images/DepartmentRegistration1.png)
+
+## The Registrar 
+### Registrar: 
+Uses all 5 interfaces above to simplify the Main class.
+![](images/Registrar2.png)
