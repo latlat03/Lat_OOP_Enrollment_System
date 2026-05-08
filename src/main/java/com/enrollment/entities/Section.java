@@ -1,23 +1,32 @@
-package com.enrollment.entities;
+package com.enrollment.entities; // 1. Match the folder path
 
+import com.enrollment.entities.Student;
+import com.enrollment.entities.Instructor;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Section {
+    private String sectionID;
     private String sectionName;
-    private int maxCapacity;
-    private Instructor instructor;
-    private List<Student> enrolledStudents;
+    private Instructor instructor; // Changed to lowercase 'instructor' for consistency
+    private ArrayList<Student> studentList;
 
-    public Section(String sectionName, int maxCapacity) {
+    public Section(String sectionID, String sectionName, Instructor instructor) {
+        this.sectionID = sectionID;
         this.sectionName = sectionName;
-        this.maxCapacity = maxCapacity;
-        this.enrolledStudents = new ArrayList<>();
+        this.instructor = instructor;
+        this.studentList = new ArrayList<>();
     }
 
-    public String getSectionName() { return sectionName; }
-    public int getMaxCapacity() { return maxCapacity; }
-    public List<Student> getEnrolledStudents() { return enrolledStudents; }
-    public Instructor getInstructor() { return instructor; }
-    public void setInstructor(Instructor instructor) { this.instructor = instructor; }
+    public void addStudent(Student student) {
+        studentList.add(student);
+    }
+
+    public void displaySectionDetails() {
+        System.out.println("Section: " + sectionName + " (ID: " + sectionID + ")");
+        System.out.println("Instructor: " + instructor.getPersonName());
+        System.out.println("Students Enrolled:");
+        for (Student s : studentList) {
+            System.out.println("- " + s.getPersonName());
+        }
+    }
 }

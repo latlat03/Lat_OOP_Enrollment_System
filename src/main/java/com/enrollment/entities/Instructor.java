@@ -1,13 +1,18 @@
 package com.enrollment.entities;
 
 public class Instructor extends Person {
-    private String department;
+    private String courses;
 
-    public Instructor(String id, String name, String department) {
-        super(id, name);
-        this.department = department;
+    public Instructor(String PersonID, String PersonName, String courses) {
+        super(PersonID, PersonName);
+        this.courses = courses;
     }
 
-    public String getDepartment() { return department; }
-    public void setDepartment(String department) { this.department = department; }
+    public String getCourses() { return courses; }
+    public void setCourses(String courses) { this.courses = courses; }
+
+    @Override
+    public void mainTask() {
+        System.out.println("Instructor teaches");
+    }
 }
