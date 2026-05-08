@@ -10,7 +10,7 @@ public class CourseServiceImpl implements ICourseService {
     private List<Course> courseList = new ArrayList<>();
 
     @Override
-    public void addCourse(Course course) { // Renamed from save
+    public void addCourse(Course course) {
         courseList.add(course);
         System.out.println("Course " + course.getCourseName() + " added successfully.");
     }

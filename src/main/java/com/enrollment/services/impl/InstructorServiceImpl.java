@@ -49,7 +49,10 @@ public class InstructorServiceImpl implements IInstructorService {
 
     @Override
     public void deleteInstructor(String id) {
-        boolean removed = instructors.removeIf(i -> i.getPersonID().equalsIgnoreCase(id));
+        // If your Instructor entity uses getEmployeeId, use this:
+        boolean removed = instructors.removeIf(instructor ->
+                instructor.getPersonID().equalsIgnoreCase(id));
+
         if (removed) {
             System.out.println("Instructor ID " + id + " deleted.");
         } else {

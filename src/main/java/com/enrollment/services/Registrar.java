@@ -25,6 +25,23 @@ public class Registrar {
         this.tuitionService = tuitionService;
     }
 
+    public void removeStudent(String id) {
+        if(studentService.removeStudent(id)) {
+            System.out.println("Student removed successfully.");
+        } else {
+            System.out.println("Error: Student ID not found.");
+        }
+    }
+
+    public void deleteSection(String name) {
+        enrollmentService.deleteSection(name);
+        System.out.println("Section deleted.");
+    }
+
+    public void removeInstructor(String id) {
+        instructorService.deleteInstructor(id);
+    }
+
     // Student Bridge Methods
     public void saveStudent(Student student) { studentService.addStudent(student); }
     public void displayAllStudents() { studentService.displayAllStudents(); }
