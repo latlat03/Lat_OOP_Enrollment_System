@@ -12,9 +12,21 @@ public abstract class Person {
     public Person() {}
 
     public String getPersonID() { return PersonID; }
-    public void setPersonID(String PersonID) { this.PersonID = PersonID; }
+
+    public void setPersonID(String PersonID) {
+        this.PersonID = PersonID;
+    }
+
     public String getPersonName() { return PersonName; }
-    public void setPersonName(String PersonName) { this.PersonName = PersonName; }
+
+    // Adding a small validation logic here to "show off" encapsulation
+    public void setPersonName(String PersonName) {
+        if (PersonName != null && !PersonName.trim().isEmpty()) {
+            this.PersonName = PersonName;
+        } else {
+            System.out.println("Error: Name cannot be empty.");
+        }
+    }
 
     public abstract void mainTask();
 }

@@ -1,10 +1,9 @@
 package com.enrollment.services;
 
-import com.enrollment.entities.Person;
 import com.enrollment.entities.Student;
 import java.util.ArrayList;
 
-public class StudentRegistration extends Person {
+public class StudentRegistration { // Removed "extends Person"
     private ArrayList<Student> studentList = new ArrayList<>();
 
     public void saveStudent(Student student) {
@@ -12,8 +11,12 @@ public class StudentRegistration extends Person {
     }
 
     public void displayAllStudents() {
-        for (Student s : studentList) {
-            System.out.println("\nID: " + s.getPersonID() + " | Name: " + s.getPersonName() + " | Program: " + s.getProgram());
+        if (studentList.isEmpty()) {
+            System.out.println("No students registered yet.");
+        } else {
+            for (Student s : studentList) {
+                System.out.println(s);
+            }
         }
     }
 
@@ -27,8 +30,12 @@ public class StudentRegistration extends Person {
         return false;
     }
 
-    @Override
-    public void mainTask() {
-        System.out.println("Registers students");
+    public Student findStudent(String id) {
+        for (Student s : studentList) {
+            if (s.getPersonID().equalsIgnoreCase(id)) {
+                return s;
+            }
+        }
+        return null;
     }
 }
