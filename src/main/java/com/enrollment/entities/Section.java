@@ -1,4 +1,4 @@
-package com.enrollment.entities; // 1. Match the folder path
+package com.enrollment.entities;
 
 import com.enrollment.entities.Student;
 import com.enrollment.entities.Instructor;

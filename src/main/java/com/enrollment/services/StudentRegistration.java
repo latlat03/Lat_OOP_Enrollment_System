@@ -3,13 +3,15 @@ package com.enrollment.services;
 import com.enrollment.entities.Student;
 import java.util.ArrayList;
 
-public class StudentRegistration { // Removed "extends Person"
+public class StudentRegistration implements StudentReg {
     private ArrayList<Student> studentList = new ArrayList<>();
 
+    @Override
     public void saveStudent(Student student) {
         studentList.add(student);
     }
 
+    @Override
     public void displayAllStudents() {
         if (studentList.isEmpty()) {
             System.out.println("No students registered yet.");
@@ -20,6 +22,7 @@ public class StudentRegistration { // Removed "extends Person"
         }
     }
 
+    @Override
     public boolean updateStudent(Student student) {
         for (int i = 0; i < studentList.size(); i++) {
             if (studentList.get(i).getPersonID().equals(student.getPersonID())) {
@@ -30,6 +33,12 @@ public class StudentRegistration { // Removed "extends Person"
         return false;
     }
 
+    @Override
+    public boolean removeStudent(String id) {
+        return studentList.removeIf(s -> s.getPersonID().equalsIgnoreCase(id));
+    }
+
+    @Override
     public Student findStudent(String id) {
         for (Student s : studentList) {
             if (s.getPersonID().equalsIgnoreCase(id)) {

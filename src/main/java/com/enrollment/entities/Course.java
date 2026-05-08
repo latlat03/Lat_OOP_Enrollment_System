@@ -3,27 +3,16 @@ package com.enrollment.entities;
 public class Course {
     private String courseCode;
     private String courseName;
-    private int units;
+    private String courseProgram;
 
-    public Course(String courseCode, String courseName, int units) {
+    public Course(String courseCode, String courseName, String courseProgram) {
         this.courseCode = courseCode;
         this.courseName = courseName;
-        this.units = units;
+        this.courseProgram = courseProgram;
     }
 
+    // Getters
     public String getCourseCode() { return courseCode; }
     public String getCourseName() { return courseName; }
-    public int getUnits() { return units; }
-
-    public String getPersonID() {
-        return null;
-    }
-
-    public String getPersonName() {
-        return null;
-    }
-
-    public String getCourseProgram() {
-        return null;
-    }
+    public String getCourseProgram() { return courseProgram; }
 }

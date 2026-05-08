@@ -1,7 +1,6 @@
 package com.enrollment.entities;
 
 public class Student extends Person {
-    // Encapsulated field: only accessible within this class
     private String program;
 
     public Student(String PersonID, String PersonName, String program) {
