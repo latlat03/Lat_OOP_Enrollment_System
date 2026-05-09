@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.enrollment.entities.Course;
-import com.enrollment.services.ICourseService;
 import com.enrollment.services.impl.CourseServiceImpl;
 
 public class CourseServiceTest {
