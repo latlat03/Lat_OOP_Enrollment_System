@@ -1,68 +1,150 @@
 package com.enrollment.services;
 
-import com.enrollment.entities.Student;
-import com.enrollment.entities.Course;
-import com.enrollment.entities.Instructor;
-import com.enrollment.entities.Section;
-import com.enrollment.entities.Department; // NEW
+import com.enrollment.exceptions.SectionFullException;
+import com.enrollment.exceptions.DuplicateEnrollmentException;
+
+import com.enrollment.entities.*;
 
 public class Registrar {
-    private StudentReg studentRegistration;
-    private CourseReg courseRegistration;
-    private final InstructorReg instructorReg;
-    private final SectionReg sectionReg;
-    private final DepartmentReg departmentReg; // NEW
+    private final IStudentService studentService;
+    private final ICourseService courseService;
+    private final IInstructorService instructorService;
+    private final IEnrollmentService enrollmentService;
+    private final IDepartmentService departmentService;
+    private final ITuitionService tuitionService;
 
-    public Registrar(StudentReg studentRegistration, CourseReg courseRegistration) {
-        this.studentRegistration = studentRegistration;
-        this.courseRegistration = courseRegistration;
-        this.instructorReg = new InstructorRegistration();
-        this.sectionReg = new SectionRegistration();
-        this.departmentReg = new DepartmentRegistration();
+    public Registrar(IStudentService studentService,
+                     ICourseService courseService,
+                     IInstructorService instructorService,
+                     IEnrollmentService enrollmentService,
+                     IDepartmentService departmentService,
+                     ITuitionService tuitionService) {
+
+        this.studentService = studentService;
+        this.courseService = courseService;
+        this.instructorService = instructorService;
+        this.enrollmentService = enrollmentService;
+        this.departmentService = departmentService;
+        this.tuitionService = tuitionService;
     }
 
-    // Student Methods
-    public void saveStudent(Student student) { studentRegistration.saveStudent(student); }
-    public void displayAllStudents() { studentRegistration.displayAllStudents(); }
-    public boolean removeStudent(String id) { return studentRegistration.removeStudent(id); }
-    public Student findStudent(String id) { return studentRegistration.findStudent(id); }
-    public boolean updateStudent(Student student) { return studentRegistration.updateStudent(student); }
+    // STUDENT BRIDGE METHODS
+    public void saveStudent(Student student) {
+        studentService.addStudent(student);
+    }
 
-    // Course Methods
-    public void saveCourse(Course course) { courseRegistration.save(course); }
-    public void displayAllCourses() { courseRegistration.displayAll(); }
-    public void removeCourse(String courseID) { courseRegistration.removeCourse(courseID); }
+    public void displayAllStudents() {
+        studentService.displayAllStudents();
+    }
 
-    // Instructor Methods
-    public void saveInstructor(Instructor instructor) { instructorReg.save(instructor); }
-    public void displayAllInstructors() { instructorReg.displayAll(); }
-    public Instructor findInstructor(String id) { return instructorReg.findByID(id); }
-    public void updateInstructor(String id, Instructor updated) { instructorReg.updateInstructor(id, updated); }
-    public void deleteInstructor(String id) { instructorReg.deleteInstructor(id); }
+    public Student findStudent(String id) {
+        return studentService.findStudent(id);
+    }
 
-    // Section Methods
-    public void saveSection(Section section) { sectionReg.save(section); }
-    public void displayAllSections() {
-        if (sectionReg.displayAll().isEmpty()) {
-            System.out.println("No sections created yet.");
+    public void removeStudent(String id) {
+        if(studentService.removeStudent(id)) {
+            System.out.println("Student removed successfully.");
         } else {
-            for (Section s : sectionReg.displayAll()) {
-                System.out.println(s);
-            }
+            System.out.println("Error: Student ID not found.");
         }
     }
-    public void enrollStudentInSection(String sectionName, Student student) {
-        sectionReg.addStudentToSection(sectionName, student);
+
+    public void updateStudent(String id, Student student) {
+        studentService.updateStudent(id, student);
     }
 
-    public void saveDepartment(Department dept) { departmentReg.save(dept); }
+    // COURSE BRIDGE METHODS
+    public void saveCourse(Course course) {
+        courseService.addCourse(course);
+    }
+
+    public void displayAllCourses() {
+        courseService.displayAllCourses();
+    }
+
+    public Course findCourse(String code) {
+        return courseService.findCourse(code);
+    }
+
+    public void updateCourse(Course course) {
+        courseService.updateCourse(course.getCourseCode(), course);
+    }
+
+    public void removeCourse(String courseCode) {
+        courseService.removeCourse(courseCode);
+    }
+
+    // INSTRUCTOR BRIDGE METHODS
+    public void saveInstructor(Instructor instructor) {
+        instructorService.addInstructor(instructor);
+    }
+
+    public void displayAllInstructors() {
+        instructorService.displayAllInstructors();
+    }
+
+    public Instructor findInstructor(String id) {
+        return instructorService.getInstructorDetails(id);
+    }
+
+    public void removeInstructor(String id) {
+        instructorService.deleteInstructor(id);
+    }
+
+    public void updateInstructor(String id, Instructor instructor) {
+        instructorService.updateInstructor(id, instructor);
+    }
+
+    // SECTION & ENROLLMENT BRIDGE METHODS
+    public void saveSection(Section section) {
+        enrollmentService.saveSection(section);
+    }
+
+    public void displayAllSections() {
+        for (Section s : enrollmentService.getAllSections()) {
+            System.out.println(s);
+        }
+    }
+
+    public void deleteSection(String name) {
+        enrollmentService.deleteSection(name);
+        System.out.println("Section deleted.");
+    }
+
+    public void enrollStudentInSection(String sectionName, Student student)
+            throws SectionFullException, DuplicateEnrollmentException {
+        enrollmentService.enrollStudentInSection(student, sectionName);
+    }
+
+    // Instructor to Section
+    public void assignInstructorToSection(Instructor instructor, String sectionName) {
+        enrollmentService.assignInstructorToSection(instructor, sectionName);
+    }
+
+    // Course to Section
+    public void linkCourseToSection(Course course, String sectionName) {
+        enrollmentService.linkCourseToSection(course, sectionName);
+    }
+
+    // DEPARTMENT BRIDGE METHODS
+    public void saveDepartment(Department dept) {
+        departmentService.addDepartment(dept);
+    }
+
     public void displayDepartments() {
-        if (departmentReg.displayAll().isEmpty()) {
+        if (departmentService.getAllDepartments().isEmpty()) {
             System.out.println("No departments registered.");
         } else {
-            for (Department d : departmentReg.displayAll()) {
+            for (Department d : departmentService.getAllDepartments()) {
                 System.out.println(d);
             }
         }
+    }
+
+    // FINANCE/TUITION BRIDGE METHODS
+    public void processTuition(Student student, int units) {
+        tuitionService.processStudentTuition(student, units);
+        System.out.println("Processing complete for " + student.getPersonName());
+        System.out.println("Current Student Balance: $" + String.format("%.2f", student.getBalance()));
     }
 }

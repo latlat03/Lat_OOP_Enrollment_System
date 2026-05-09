@@ -11,7 +11,6 @@ public class Course {
         this.courseProgram = courseProgram;
     }
 
-    // Getters
     public String getCourseCode() { return courseCode; }
     public String getCourseName() { return courseName; }
     public String getCourseProgram() { return courseProgram; }

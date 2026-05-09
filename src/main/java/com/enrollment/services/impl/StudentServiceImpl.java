@@ -1,14 +1,18 @@
-package com.enrollment.services;
+package com.enrollment.services.impl;
 
 import com.enrollment.entities.Student;
-import java.util.ArrayList;
+import com.enrollment.services.IStudentService;
 
-public class StudentRegistration implements StudentReg {
-    private ArrayList<Student> studentList = new ArrayList<>();
+import java.util.ArrayList;
+import java.util.List;
+
+public class StudentServiceImpl implements IStudentService {
+    private List<Student> studentList = new ArrayList<>();
 
     @Override
-    public void saveStudent(Student student) {
+    public void addStudent(Student student) {
         studentList.add(student);
+        System.out.println("Student " + student.getPersonName() + " added successfully.");
     }
 
     @Override
@@ -23,19 +27,25 @@ public class StudentRegistration implements StudentReg {
     }
 
     @Override
-    public boolean updateStudent(Student student) {
+    public boolean updateStudent(String id, Student student) {
         for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get(i).getPersonID().equals(student.getPersonID())) {
+            if (studentList.get(i).getPersonID().equalsIgnoreCase(id)) {
                 studentList.set(i, student);
+                System.out.println("Student ID " + id + " updated.");
                 return true;
             }
         }
+        System.out.println("Student ID " + id + " not found.");
         return false;
     }
 
     @Override
     public boolean removeStudent(String id) {
-        return studentList.removeIf(s -> s.getPersonID().equalsIgnoreCase(id));
+        boolean removed = studentList.removeIf(s -> s.getPersonID().equalsIgnoreCase(id));
+        if (removed) {
+            System.out.println("Student ID " + id + " removed.");
+        }
+        return removed;
     }
 
     @Override
