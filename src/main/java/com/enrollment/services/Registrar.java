@@ -1,5 +1,8 @@
 package com.enrollment.services;
 
+import com.enrollment.exceptions.SectionFullException;
+import com.enrollment.exceptions.DuplicateEnrollmentException;
+
 import com.enrollment.entities.*;
 
 public class Registrar {
@@ -108,7 +111,8 @@ public class Registrar {
         System.out.println("Section deleted.");
     }
 
-    public void enrollStudentInSection(String sectionName, Student student) {
+    public void enrollStudentInSection(String sectionName, Student student)
+            throws SectionFullException, DuplicateEnrollmentException {
         enrollmentService.enrollStudentInSection(student, sectionName);
     }
 

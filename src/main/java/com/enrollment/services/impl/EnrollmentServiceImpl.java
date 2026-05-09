@@ -4,6 +4,8 @@ import com.enrollment.entities.Course;
 import com.enrollment.entities.Instructor;
 import com.enrollment.entities.Section;
 import com.enrollment.entities.Student;
+import com.enrollment.exceptions.SectionFullException;
+import com.enrollment.exceptions.DuplicateEnrollmentException;
 import com.enrollment.services.IEnrollmentService;
 
 import java.util.*;
@@ -33,22 +35,25 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     }
 
     @Override
-    public void enrollStudentInSection(Student student, String sectionName) {
+    public void enrollStudentInSection(Student student, String sectionName)
+            throws SectionFullException, DuplicateEnrollmentException {
+
         Section foundSection = findBySectionName(sectionName);
+
         if (foundSection != null) {
-            // Check duplicates
             if (foundSection.getEnrolledStudents().contains(student)) {
-                System.out.println("Enrollment Failed: " + student.getPersonName() + " is already in " + sectionName);
-                return;
+                throw new DuplicateEnrollmentException("Enrollment Failed: " +
+                        student.getPersonName() + " is already in " + sectionName);
             }
 
-            // Check capacity
-            if (foundSection.getEnrolledStudents().size() < foundSection.getMaxCapacity()) {
-                foundSection.getEnrolledStudents().add(student);
-                System.out.println("Enrolled " + student.getPersonName() + " into " + sectionName);
-            } else {
-                System.out.println("Enrollment Failed: " + sectionName + " is at full capacity (" + foundSection.getMaxCapacity() + ").");
+            if (foundSection.getEnrolledStudents().size() >= foundSection.getMaxCapacity()) {
+                throw new SectionFullException("Enrollment Failed: " + sectionName +
+                        " is at full capacity (" + foundSection.getMaxCapacity() + ").");
             }
+
+            foundSection.getEnrolledStudents().add(student);
+            System.out.println("Enrolled " + student.getPersonName() + " into " + sectionName);
+
         } else {
             System.out.println("Section " + sectionName + " not found!");
         }

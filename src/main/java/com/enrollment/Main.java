@@ -4,6 +4,8 @@ import com.enrollment.entities.*;
 import com.enrollment.services.*;
 import com.enrollment.services.impl.*;
 import java.util.Scanner;
+import com.enrollment.exceptions.SectionFullException;
+import com.enrollment.exceptions.DuplicateEnrollmentException;
 
 public class Main {
     public static void main(String[] args) {
@@ -58,7 +60,6 @@ public class Main {
             input.nextLine();
 
             switch (choice) {
-                // ... (Cases 1-10 remain the same)
                 case 1:
                     System.out.print("Name: "); String name = input.nextLine();
                     System.out.print("ID: "); String id = input.nextLine();
@@ -142,11 +143,19 @@ public class Main {
                     registrar.deleteSection(input.nextLine());
                     break;
                 case 14:
-                    System.out.print("Section Name: "); String targetSec = input.nextLine();
-                    System.out.print("Student ID: "); String targetID = input.nextLine();
+                    System.out.print("Section Name: ");
+                    String targetSec = input.nextLine();
+                    System.out.print("Student ID: ");
+                    String targetID = input.nextLine();
                     Student found = registrar.findStudent(targetID);
+
                     if (found != null) {
-                        registrar.enrollStudentInSection(targetSec, found);
+                        // TRY-CATCH BLOCK
+                        try {
+                            registrar.enrollStudentInSection(targetSec, found);
+                        } catch (SectionFullException | DuplicateEnrollmentException e) {
+                            System.err.println(e.getMessage());
+                        }
                     } else {
                         System.out.println("Error: Student not found.");
                     }
