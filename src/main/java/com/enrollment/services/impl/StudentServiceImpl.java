@@ -27,14 +27,15 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public boolean updateStudent(Student student) {
+    public boolean updateStudent(String id, Student student) {
         for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get(i).getPersonID().equals(student.getPersonID())) {
+            if (studentList.get(i).getPersonID().equalsIgnoreCase(id)) {
                 studentList.set(i, student);
-                System.out.println("Student ID " + student.getPersonID() + " updated.");
+                System.out.println("Student ID " + id + " updated.");
                 return true;
             }
         }
+        System.out.println("Student ID " + id + " not found.");
         return false;
     }
 

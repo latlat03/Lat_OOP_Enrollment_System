@@ -25,6 +25,19 @@ public class Registrar {
         this.tuitionService = tuitionService;
     }
 
+    // STUDENT BRIDGE METHODS
+    public void saveStudent(Student student) {
+        studentService.addStudent(student);
+    }
+
+    public void displayAllStudents() {
+        studentService.displayAllStudents();
+    }
+
+    public Student findStudent(String id) {
+        return studentService.findStudent(id);
+    }
+
     public void removeStudent(String id) {
         if(studentService.removeStudent(id)) {
             System.out.println("Student removed successfully.");
@@ -33,43 +46,72 @@ public class Registrar {
         }
     }
 
-    public void deleteSection(String name) {
-        enrollmentService.deleteSection(name);
-        System.out.println("Section deleted.");
+    public void updateStudent(String id, Student student) {
+        studentService.updateStudent(id, student);
+    }
+
+    // COURSE BRIDGE METHODS
+    public void saveCourse(Course course) {
+        courseService.addCourse(course);
+    }
+
+    public void displayAllCourses() {
+        courseService.displayAllCourses();
+    }
+
+    public void updateCourse(Course course) {
+        courseService.updateCourse(course.getCourseCode(), course);
+    }
+
+    public void removeCourse(String courseCode) {
+        courseService.removeCourse(courseCode);
+    }
+
+    // INSTRUCTOR BRIDGE METHODS
+    public void saveInstructor(Instructor instructor) {
+        instructorService.addInstructor(instructor);
+    }
+
+    public void displayAllInstructors() {
+        instructorService.displayAllInstructors();
+    }
+
+    public Instructor findInstructor(String id) {
+        return instructorService.getInstructorDetails(id);
     }
 
     public void removeInstructor(String id) {
         instructorService.deleteInstructor(id);
     }
 
-    // Student Bridge Methods
-    public void saveStudent(Student student) { studentService.addStudent(student); }
-    public void displayAllStudents() { studentService.displayAllStudents(); }
-    public Student findStudent(String id) { return studentService.findStudent(id); }
+    public void updateInstructor(String id, Instructor instructor) {
+        instructorService.updateInstructor(id, instructor);
+    }
 
-    // Course Bridge Methods
-    public void saveCourse(Course course) { courseService.addCourse(course); }
-    public void displayAllCourses() { courseService.displayAllCourses(); }
+    // SECTION & ENROLLMENT BRIDGE METHODS
+    public void saveSection(Section section) {
+        enrollmentService.saveSection(section);
+    }
 
-    // Instructor Bridge Methods
-    public void saveInstructor(Instructor instructor) { instructorService.addInstructor(instructor); }
-    public void displayAllInstructors() { instructorService.displayAllInstructors(); }
-    public Instructor findInstructor(String id) { return instructorService.getInstructorDetails(id); }
-
-    // Section & Enrollment Bridge Methods
-    public void saveSection(Section section) { enrollmentService.saveSection(section); }
     public void displayAllSections() {
         for (Section s : enrollmentService.getAllSections()) {
             System.out.println(s);
         }
     }
 
+    public void deleteSection(String name) {
+        enrollmentService.deleteSection(name);
+        System.out.println("Section deleted.");
+    }
+
     public void enrollStudentInSection(String sectionName, Student student) {
         enrollmentService.enrollStudentInSection(student, sectionName);
     }
 
-    // Department Bridge Methods
-    public void saveDepartment(Department dept) { departmentService.addDepartment(dept); }
+    // DEPARTMENT BRIDGE METHODS
+    public void saveDepartment(Department dept) {
+        departmentService.addDepartment(dept);
+    }
 
     public void displayDepartments() {
         if (departmentService.getAllDepartments().isEmpty()) {
@@ -81,7 +123,7 @@ public class Registrar {
         }
     }
 
-    // Tuition Bridge Method
+    // FINANCE/TUITION BRIDGE METHODS
     public void processTuition(int units) {
         double fee = tuitionService.calculateFee(units);
         System.out.println("Units: " + units);

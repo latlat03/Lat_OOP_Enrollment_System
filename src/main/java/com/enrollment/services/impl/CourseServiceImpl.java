@@ -29,9 +29,9 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     @Override
-    public void updateCourse(Course course) {
+    public void updateCourse(String courseID, Course course) {
         for (int i = 0; i < courseList.size(); i++) {
-            if (courseList.get(i).getCourseCode().equals(course.getCourseCode())) {
+            if (courseList.get(i).getCourseCode().equalsIgnoreCase(courseID)) {
                 courseList.set(i, course);
                 System.out.println("Course updated.");
                 return;

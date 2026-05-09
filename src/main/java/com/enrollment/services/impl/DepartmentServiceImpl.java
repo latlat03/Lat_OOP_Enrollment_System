@@ -9,13 +9,13 @@ public class DepartmentServiceImpl implements IDepartmentService {
     private List<Department> departments = new ArrayList<>();
 
     @Override
-    public void addDepartment(Department department) { // Renamed from save
+    public void addDepartment(Department department) {
         departments.add(department);
         System.out.println("Department '" + department.getDepartmentName() + "' registered successfully.");
     }
 
     @Override
-    public List<Department> getAllDepartments() { // Renamed from displayAll
+    public List<Department> getAllDepartments() {
         return departments;
     }
 }
