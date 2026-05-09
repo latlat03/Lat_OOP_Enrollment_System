@@ -137,7 +137,7 @@ public class Main {
                 case 11:
                     System.out.print("Section Name: "); String sName = input.nextLine();
                     System.out.print("Capacity: "); int cap = input.nextInt();
-                    input.nextLine(); // Consume newline
+                    input.nextLine();
                     registrar.saveSection(new Section(sName, cap));
                     break;
                 case 12:

@@ -34,6 +34,13 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     public void enrollStudentInSection(Student student, String sectionName) {
         Section foundSection = findBySectionName(sectionName);
         if (foundSection != null) {
+            // Check for duplicates
+            if (foundSection.getEnrolledStudents().contains(student)) {
+                System.out.println("Enrollment Failed: " + student.getPersonName() + " is already in " + sectionName);
+                return;
+            }
+
+            // Check for capacity
             if (foundSection.getEnrolledStudents().size() < foundSection.getMaxCapacity()) {
                 foundSection.getEnrolledStudents().add(student);
                 System.out.println("Enrolled " + student.getPersonName() + " into " + sectionName);
