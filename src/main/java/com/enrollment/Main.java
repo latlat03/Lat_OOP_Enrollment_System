@@ -46,7 +46,7 @@ public class Main {
 
             System.out.println("\n   [ENROLLMENT & SECTIONS]");
             System.out.println("    [11] Create Section   [12] Display All  [13] Delete Section");
-            System.out.println("    [14] Enroll Student in Section");
+            System.out.println("    [14] Enroll Student   [20] Assign Teacher [21] Link Course");
 
             System.out.println("\n   [FINANCE]");
             System.out.println("    [15] Process Tuition");
@@ -58,7 +58,7 @@ public class Main {
             input.nextLine();
 
             switch (choice) {
-                // STUDENTS CRUD
+                // ... (Cases 1-10 remain the same)
                 case 1:
                     System.out.print("Name: "); String name = input.nextLine();
                     System.out.print("ID: "); String id = input.nextLine();
@@ -79,8 +79,6 @@ public class Main {
                     System.out.print("New Program: "); String newSProg = input.nextLine();
                     registrar.updateStudent(updateSid, new Student(updateSid, newSName, newSProg));
                     break;
-
-                // COURSES CRUD
                 case 4:
                     System.out.print("Code: "); String cCode = input.nextLine();
                     System.out.print("Name: "); String cName = input.nextLine();
@@ -101,8 +99,6 @@ public class Main {
                     System.out.print("Enter Course Code to remove: ");
                     registrar.removeCourse(input.nextLine());
                     break;
-
-                // INSTRUCTORS CRUD
                 case 6:
                     System.out.print("Name: "); String iName = input.nextLine();
                     System.out.print("ID: "); String iId = input.nextLine();
@@ -123,8 +119,6 @@ public class Main {
                     System.out.print("New Course Assignment: "); String newICourse = input.nextLine();
                     registrar.updateInstructor(updateIid, new Instructor(updateIid, newIName, newICourse));
                     break;
-
-                // DEPARTMENTS
                 case 9:
                     System.out.print("Dept Name: ");
                     registrar.saveDepartment(new Department(input.nextLine()));
@@ -158,21 +152,49 @@ public class Main {
                     }
                     break;
 
+                // ASSIGN INSTRUCTOR TO SECTION
+                case 20:
+                    System.out.print("Enter Section Name: ");
+                    String sectionForTeacher = input.nextLine();
+                    System.out.print("Enter Instructor ID: ");
+                    String teacherId = input.nextLine();
+                    Instructor instructor = registrar.findInstructor(teacherId);
+
+                    if (instructor != null) {
+                        registrar.assignInstructorToSection(instructor, sectionForTeacher);
+                    } else {
+                        System.out.println("Error: Instructor not found.");
+                    }
+                    break;
+
+                // COURSE TO SECTION
+                case 21:
+                    System.out.print("Enter Section Name: ");
+                    String sectionForCourse = input.nextLine();
+                    System.out.print("Enter Course Code: ");
+                    String courseCode = input.nextLine();
+                    Course course = registrar.findCourse(courseCode);
+
+                    if (course != null) {
+                        registrar.linkCourseToSection(course, sectionForCourse);
+                    } else {
+                        System.out.println("Error: Course not found.");
+                    }
+                    break;
+
                 // FINANCE
                 case 15:
                     System.out.print("Enter Student ID: ");
                     String feeSid = input.nextLine();
-
                     Student feeStudent = registrar.findStudent(feeSid);
 
                     if (feeStudent != null) {
                         System.out.print("Enter units to charge: ");
                         int units = input.nextInt();
                         input.nextLine();
-
                         registrar.processTuition(feeStudent, units);
                     } else {
-                        System.out.println("Error: Student with ID " + feeSid + " not found.");
+                        System.out.println("Error: Student not found.");
                     }
                     break;
 

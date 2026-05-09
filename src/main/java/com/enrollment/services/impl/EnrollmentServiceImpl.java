@@ -1,5 +1,7 @@
 package com.enrollment.services.impl;
 
+import com.enrollment.entities.Course;
+import com.enrollment.entities.Instructor;
 import com.enrollment.entities.Section;
 import com.enrollment.entities.Student;
 import com.enrollment.services.IEnrollmentService;
@@ -34,13 +36,13 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     public void enrollStudentInSection(Student student, String sectionName) {
         Section foundSection = findBySectionName(sectionName);
         if (foundSection != null) {
-            // Check for duplicates
+            // Check duplicates
             if (foundSection.getEnrolledStudents().contains(student)) {
                 System.out.println("Enrollment Failed: " + student.getPersonName() + " is already in " + sectionName);
                 return;
             }
 
-            // Check for capacity
+            // Check capacity
             if (foundSection.getEnrolledStudents().size() < foundSection.getMaxCapacity()) {
                 foundSection.getEnrolledStudents().add(student);
                 System.out.println("Enrolled " + student.getPersonName() + " into " + sectionName);
@@ -65,5 +67,29 @@ public class EnrollmentServiceImpl implements IEnrollmentService {
     @Override
     public void deleteSection(String sectionName) {
         sections.removeIf(s -> s.getSectionName().equalsIgnoreCase(sectionName));
+    }
+
+    @Override
+    public void assignInstructorToSection(Instructor instructor, String sectionName) {
+        Section foundSection = findBySectionName(sectionName);
+        if (foundSection != null) {
+            foundSection.setAssignedInstructor(instructor);
+            System.out.println("Success: Instructor " + instructor.getPersonName() +
+                    " assigned to section " + sectionName);
+        } else {
+            System.out.println("Error: Section " + sectionName + " not found!");
+        }
+    }
+
+    @Override
+    public void linkCourseToSection(Course course, String sectionName) {
+        Section foundSection = findBySectionName(sectionName);
+        if (foundSection != null) {
+            foundSection.setCourse(course);
+            System.out.println("Success: Section " + sectionName +
+                    " is now an instance of " + course.getCourseName());
+        } else {
+            System.out.println("Error: Section " + sectionName + " not found!");
+        }
     }
 }

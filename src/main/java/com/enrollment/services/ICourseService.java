@@ -7,4 +7,6 @@ public interface ICourseService {
     void displayAllCourses();
     void updateCourse(String courseID, Course course);
     void removeCourse(String courseID);
+
+    Course findCourse(String courseID);
 }

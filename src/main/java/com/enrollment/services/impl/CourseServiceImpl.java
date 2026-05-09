@@ -49,4 +49,15 @@ public class CourseServiceImpl implements ICourseService {
             System.out.println("Course not found.");
         }
     }
+
+    @Override
+    public Course findCourse(String courseID) {
+        for (Course c : courseList) {
+            if (c.getCourseCode().equalsIgnoreCase(courseID)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
 }

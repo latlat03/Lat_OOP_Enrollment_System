@@ -59,6 +59,10 @@ public class Registrar {
         courseService.displayAllCourses();
     }
 
+    public Course findCourse(String code) {
+        return courseService.findCourse(code);
+    }
+
     public void updateCourse(Course course) {
         courseService.updateCourse(course.getCourseCode(), course);
     }
@@ -108,6 +112,16 @@ public class Registrar {
         enrollmentService.enrollStudentInSection(student, sectionName);
     }
 
+    // Instructor to Section
+    public void assignInstructorToSection(Instructor instructor, String sectionName) {
+        enrollmentService.assignInstructorToSection(instructor, sectionName);
+    }
+
+    // Course to Section
+    public void linkCourseToSection(Course course, String sectionName) {
+        enrollmentService.linkCourseToSection(course, sectionName);
+    }
+
     // DEPARTMENT BRIDGE METHODS
     public void saveDepartment(Department dept) {
         departmentService.addDepartment(dept);
@@ -126,8 +140,7 @@ public class Registrar {
     // FINANCE/TUITION BRIDGE METHODS
     public void processTuition(Student student, int units) {
         tuitionService.processStudentTuition(student, units);
-
         System.out.println("Processing complete for " + student.getPersonName());
-        System.out.println("Current Student Balance: $" + student.getBalance());
+        System.out.println("Current Student Balance: $" + String.format("%.2f", student.getBalance()));
     }
 }
