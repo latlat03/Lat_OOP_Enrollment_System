@@ -124,10 +124,10 @@ public class Registrar {
     }
 
     // FINANCE/TUITION BRIDGE METHODS
-    public void processTuition(int units) {
-        double fee = tuitionService.calculateFee(units);
-        System.out.println("Units: " + units);
-        System.out.println("Total Fee: " + fee);
-        System.out.println("New Balance: " + tuitionService.getRemainingBalance());
+    public void processTuition(Student student, int units) {
+        tuitionService.processStudentTuition(student, units);
+
+        System.out.println("Processing complete for " + student.getPersonName());
+        System.out.println("Current Student Balance: $" + student.getBalance());
     }
 }

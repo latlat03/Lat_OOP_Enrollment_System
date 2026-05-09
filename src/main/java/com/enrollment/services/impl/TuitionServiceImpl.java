@@ -1,19 +1,25 @@
 package com.enrollment.services.impl;
 
+import com.enrollment.entities.Student;
 import com.enrollment.services.ITuitionService;
 
 public class TuitionServiceImpl implements ITuitionService {
-    private double balance = 0;
 
     @Override
-    public double calculateFee(int units) {
+    public void processStudentTuition(Student student, int units) {
         double fee = units * 1500.0;
-        this.balance += fee;
-        return fee;
+
+        double newBalance = student.getBalance() + fee;
+
+        student.setBalance(newBalance);
+
+        System.out.println("Processing tuition for: " + student.getPersonName());
+        System.out.println("Fee for " + units + " units: $" + fee);
+        System.out.println("New Total Balance: $" + student.getBalance());
     }
 
     @Override
-    public double getRemainingBalance() {
-        return balance;
+    public double getStudentBalance(Student student) {
+        return student.getBalance();
     }
 }

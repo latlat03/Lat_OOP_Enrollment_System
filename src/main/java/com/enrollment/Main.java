@@ -160,9 +160,20 @@ public class Main {
 
                 // FINANCE
                 case 15:
-                    System.out.print("Enter units: ");
-                    registrar.processTuition(input.nextInt());
-                    input.nextLine();
+                    System.out.print("Enter Student ID: ");
+                    String feeSid = input.nextLine();
+
+                    Student feeStudent = registrar.findStudent(feeSid);
+
+                    if (feeStudent != null) {
+                        System.out.print("Enter units to charge: ");
+                        int units = input.nextInt();
+                        input.nextLine();
+
+                        registrar.processTuition(feeStudent, units);
+                    } else {
+                        System.out.println("Error: Student with ID " + feeSid + " not found.");
+                    }
                     break;
 
                 case 0:
