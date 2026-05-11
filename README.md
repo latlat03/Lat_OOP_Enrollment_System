@@ -2,15 +2,14 @@
 
 Author: Lat, Zeus Aron M.
 
-Course: Integrative Programming - Object-Oriented Pro
-gramming (Finals)
+Course: Integrative Programming - Object-Oriented Programming (Finals)
 
 Architecture: Service-Oriented Architecture (SOA) | Interface-Driven Design
 
 ## Project Vision & Architectural Thinking
 This Capstone project represents the transition from basic scripting to Professional Software Architecture. The system is built on a Service-Oriented Model, where logic is decoupled from data.
 
-The "Registrar" Design Patternn
+The "Registrar" Design Pattern
 Instead of the Main class talking directly to every small part of the system, I implemented a Registrar Coordinator. This acts as a "Central Brain" or "Facade," orchestrating five specialized internal services. This ensures that the UI (Main Menu) remains clean and focused solely on user interaction, while the Registrar handles the complex "behind-the-scenes" object linking.
 
 
@@ -206,55 +205,173 @@ Uses all 5 interfaces above to simplify the Main class.
 ![](images/Registrar2.png)
 
 
-## FINALS OOP COMPLETE CODE
 
-### ENTITIES
 
-Course
-Department
-Instructor
-Person
-Section
-Student
-TuitionFeePayment
+# FINALS OOP COMPLETE CODE
 
-### SERVICES
 
-#### Exceptions
-DuplicateEnrollmentException
-![Screenshot 2026-05-09 at 11.53.11 PM.png](images/Screenshot%202026-05-09%20at%2011.53.11%E2%80%AFPM.png)
-SectionFullException
-![Screenshot 2026-05-09 at 11.53.00 PM.png](images/Screenshot%202026-05-09%20at%2011.53.00%E2%80%AFPM.png)
 
-CourseServiceImpl
-![Screenshot 2026-05-09 at 11.51.19 PM.png](images/Screenshot%202026-05-09%20at%2011.51.19%E2%80%AFPM.png)
-DepartmentServiceImpl
-![Screenshot 2026-05-09 at 11.51.22 PM.png](images/Screenshot%202026-05-09%20at%2011.51.22%E2%80%AFPM.png)
-EnrollmentServiceImpl
-![Screenshot 2026-05-09 at 11.51.24 PM.png](images/Screenshot%202026-05-09%20at%2011.51.24%E2%80%AFPM.png)
-InstructorServiceImpl
-![Screenshot 2026-05-09 at 11.51.26 PM.png](images/Screenshot%202026-05-09%20at%2011.51.26%E2%80%AFPM.png)
-StudentServiceImpl
-![Screenshot 2026-05-09 at 11.51.30 PM.png](images/Screenshot%202026-05-09%20at%2011.51.30%E2%80%AFPM.png)
-TuitionServiceImpl
-![Screenshot 2026-05-09 at 11.51.34 PM.png](images/Screenshot%202026-05-09%20at%2011.51.34%E2%80%AFPM.png)
 
-#### Interfaces
-IcourseService
-![Screenshot 2026-05-09 at 11.48.17 PM.png](images/Screenshot%202026-05-09%20at%2011.48.17%E2%80%AFPM.png)
-IDepartmentService
-![Screenshot 2026-05-09 at 11.48.19 PM.png](images/Screenshot%202026-05-09%20at%2011.48.19%E2%80%AFPM.png)
-IEnrollmentService
-![Screenshot 2026-05-09 at 11.48.22 PM.png](images/Screenshot%202026-05-09%20at%2011.48.22%E2%80%AFPM.png)
-IInstructorService
-![Screenshot 2026-05-09 at 11.48.24 PM.png](images/Screenshot%202026-05-09%20at%2011.48.24%E2%80%AFPM.png)
-IStudentService
-![Screenshot 2026-05-09 at 11.48.25 PM.png](images/Screenshot%202026-05-09%20at%2011.48.25%E2%80%AFPM.png)
-ITuitionService
-![Screenshot 2026-05-09 at 11.48.27 PM.png](images/Screenshot%202026-05-09%20at%2011.48.27%E2%80%AFPM.png)
-Main
+
+# ENTITIES
+
+
+
+## Course
+![Courses2.png](images/Courses2.png)
+
+
+## Department
+![Department2.png](images/Department2.png)
+
+
+## Instructor
+![Instructor2.png](images/Instructor2.png)
+
+
+## Person
+![Person2.png](images/Person2.png)
+
+
+## Section
+![Section2.png](images/Section2.png)
+
+
+## Student
+![Student2.png](images/Student2.png)
+
+
+## TuitionFeePayment
+![TuitionFeePayment2.png](images/TuitionFeePayment2.png)
+
+
+
+
+
+# SERVICES
+
+
+
+## Exceptions
+
+
+## DuplicateEnrollmentException
+![DuplicateFullEnrollmentException2.png](images/DuplicateFullEnrollmentException2.png)
+
+
+## SectionFullException
+![SectionFullException2.png](images/SectionFullException2.png)
+
+
+
+
+## Implementation
+
+
+## CourseServiceImpl
+![CourseServiceImpl2.png](images/CourseServiceImpl2.png)
+
+
+## DepartmentServiceImpl
+![DepService2(1).png](images/DepService2%281%29.png)
+![DepServiceImpl2(2).png](images/DepServiceImpl2%282%29.png)
+
+
+## EnrollmentServiceImpl
+![EnrollmentServiceImpl2(1).png](images/EnrollmentServiceImpl2%281%29.png)
+![EnrollmentService2(2).png](images/EnrollmentService2%282%29.png)
+
+
+## InstructorServiceImpl
+![InstructorService2(1).png](images/InstructorService2%281%29.png)
+![InstructorService2(2).png](images/InstructorService2%282%29.png)
+
+
+## StudentServiceImpl
+![StudentService2.png](images/StudentService2.png)
+
+
+## TuitionServiceImpl
+![TuitionServiceImpl2.png](images/TuitionServiceImpl2.png)
+
+
+
+
+
+# Interfaces
+
+
+## IcourseService
+![ICourseService2.png](images/ICourseService2.png)
+
+
+## IDepartmentService
+![IDepartment2.png](images/IDepartment2.png)
+
+
+## IEnrollmentService
+![IEnrollment2.png](images/IEnrollment2.png)
+
+
+## IInstructorService
+![IInstructor2.png](images/IInstructor2.png)
+
+
+## IStudentService
+![IStudent2.png](images/IStudent2.png)
+
+
+## ITuitionService
+![ITtuition2.png](images/ITtuition2.png)
+
+
+
+
+
+# Registrar
+![Regis11.png](images/Regis11.png)
+![Regis22.png](images/Regis22.png)
+![Regis33.png](images/Regis33.png)
+
+
+
+
+
+# Main
 ![Screenshot 2026-05-09 at 11.44.55 PM.png](images/Screenshot%202026-05-09%20at%2011.44.55%E2%80%AFPM.png)
 ![Screenshot 2026-05-09 at 11.45.01 PM.png](images/Screenshot%202026-05-09%20at%2011.45.01%E2%80%AFPM.png)
 ![Screenshot 2026-05-09 at 11.45.05 PM.png](images/Screenshot%202026-05-09%20at%2011.45.05%E2%80%AFPM.png)
 ![Screenshot 2026-05-09 at 11.45.11 PM.png](images/Screenshot%202026-05-09%20at%2011.45.11%E2%80%AFPM.png)
 ![Screenshot 2026-05-09 at 11.45.16 PM.png](images/Screenshot%202026-05-09%20at%2011.45.16%E2%80%AFPM.png)
+
+
+
+
+
+# Junit Testing
+
+
+## CourseServiceTest
+![CourseTest2.png](images/CourseTest2.png)
+
+
+## DepartmentServiceTest
+![DepTest2.png](images/DepTest2.png)
+
+
+## EnrollmentServiceTest
+![EnrollmentTest(1).png](images/EnrollmentTest%281%29.png)
+![EnrollmentTest2(2).png](images/EnrollmentTest2%282%29.png)
+
+
+## InstructorServiceTest
+![InstructorTest2.png](images/InstructorTest2.png)
+
+
+## StudentServiceTest
+![StudentTest2.png](images/StudentTest2.png)
+
+
+## TuitionFeePaymentTest
+![TuitionTest1(1).png](images/TuitionTest1%281%29.png)
+![TuitionTest2(2).png](images/TuitionTest2%282%29.png)
